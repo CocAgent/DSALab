@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Visualizer Pro UI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            margin: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        #display {
+            position: relative;
+            height: 180px;
+            margin-top: 20px;
+        }
+
+        .number {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            line-height: 55px;
+            border-radius: 12px;
+            background: #6dd5ed;
+            color: black;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .active { background: #ff4d4d; color: white; }
+        .done { background: #00ff99; color: black; }
+
+        button, select {
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            background: #ffffff;
+            color: #333;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #ffd369;
+        }
+
+        select {
+            background: #fff;
+        }
+
+        input[type=range] {
+            width: 200px;
+        }
+
+        /* animation */
+        @keyframes swapRight {
+            0% { transform: translate(0,0) rotate(0); }
+            50% { transform: translate(var(--dx), -60px) rotate(180deg); }
+            100% { transform: translate(var(--dx),0) rotate(360deg); }
+        }
+
+        @keyframes swapLeft {
+            0% { transform: translate(0,0) rotate(0); }
+            50% { transform: translate(var(--dx), 60px) rotate(-180deg); }
+            100% { transform: translate(var(--dx),0) rotate(-360deg); }
+        }
+
+        .swapA { animation: swapRight linear forwards; }
+        .swapB { animation: swapLeft linear forwards; }
+    </style>
+</head>
+<body>
+
+<h2>✨ Sorting Visualizer Pro ✨</h2>
+
+<div class="container">
+
+    <button onclick="randomArray()">🎲 Random</button>
+
+    <select id="algo">
+        <option value="selection">Selection</option>
+        <option value="bubble">Bubble</option>
+        <option value="insertion">Insertion</option>
+        <option value="quick">Quick</option>
+    </select>
+
+    <button onclick="startSort()">▶️ Play</button>
+    <button onclick="pauseSort()">⏸️ Pause</button>
+    <button onclick="resumeSort()">▶️ Resume</button>
+    <button onclick="resetSort()">🔄 Reset</button>
+
+    <br><br>
+
+    <label>⚡ Speed: </label>
+    <input type="range" id="speed" min="100" max="1500" value="600">
+    <span id="speedValue">600 ms</span>
+
+    <div id="display"></div>
+
+</div>
+
+<script>
+let arr = [];
+let original = [];
+let done = [];
+let speed = 600;
+let isPaused = false;
+let isRunning = false;
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function checkPause(){
+    while(isPaused) await sleep(100);
+}
+
+document.getElementById("speed").oninput = function(){
+    speed = this.value;
+    document.getElementById("speedValue").innerText = speed+" ms";
+}
+
+function render(i=-1,j=-1){
+    let d=document.getElementById("display");
+    d.innerHTML="";
+
+    arr.forEach((v,idx)=>{
+        let div=document.createElement("div");
+        div.className="number";
+        div.style.left=idx*65+"px";
+        div.style.top="60px";
+
+        if(idx==i||idx==j) div.classList.add("active");
+        if(done.includes(idx)) div.classList.add("done");
+
+        div.innerText=v;
+        d.appendChild(div);
+    });
+}
+
+function randomArray(){
+    arr=[];
+    done=[];
+    for(let i=0;i<7;i++)
+        arr.push(Math.floor(Math.random()*100));
+    original=[...arr];
+    render();
+}
+
+async function animateSwap(i,j){
+    await checkPause();
+
+    let nodes=document.getElementById("display").children;
+    let a=nodes[i];
+    let b=nodes[j];
+
+    let dx=(j-i)*65;
+
+    a.style.setProperty('--dx',dx+'px');
+    b.style.setProperty('--dx',-dx+'px');
+
+    a.style.animationDuration=speed+"ms";
+    b.style.animationDuration=speed+"ms";
+
+    a.classList.add("swapA");
+    b.classList.add("swapB");
+
+    await sleep(speed);
+
+    a.classList.remove("swapA");
+    b.classList.remove("swapB");
+}
+
+async function bubbleSort(){
+    for(let i=0;i<arr.length-1;i++){
+        for(let j=0;j<arr.length-i-1;j++){
+            await checkPause();
+            render(j,j+1);
+            await sleep(speed);
+            if(arr[j]>arr[j+1]){
+                await animateSwap(j,j+1);
+                [arr[j],arr[j+1]]=[arr[j+1],arr[j]];
+            }
+        }
+        done.push(arr.length-i-1);
+    }
+}
+
+async function startSort(){
+    if(isRunning) return;
+    isRunning=true;
+    done=[];
+
+    await bubbleSort();
+
+    done=[...Array(arr.length).keys()];
+    render();
+
+    isRunning=false;
+}
+
+function pauseSort(){ isPaused=true; }
+function resumeSort(){ isPaused=false; }
+function resetSort(){
+    arr=[...original];
+    done=[];
+    isPaused=false;
+    isRunning=false;
+    render();
+}
+
+randomArray();
+</script>
+
+</body>
+</html>
