@@ -18,7 +18,7 @@ int main() {
 
     // con trỏ với mảng
     int a[3] = {2, 3, 5};
-    p = a;  // gán p trỏ tới mảng
+    p = a; 
     for (int i = 0; i < 3; i++) {
         cout << *(p + i) << " ";
     }
