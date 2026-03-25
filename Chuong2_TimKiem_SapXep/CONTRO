@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+int main() {
+	int x=10;
+	int *p=&x;
+	
+	cout << *p << endl;
+	//output: 10
+	cout << p << endl;
+	//output: 000000CC98EFF574
+	*p = 20;
+	cout << p << endl;
+	//output: 0000008FE2AFF844
+	cout << *p << endl;
+	//output: 20
+	return 0;
+}
