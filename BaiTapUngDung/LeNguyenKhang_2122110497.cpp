@@ -128,7 +128,6 @@ int main() {
     bubbleSort(a3, n);
     cout << "Bubble Sort: ";
     printArray(a3, n);
-
     // Quick
     quickSort(a4, 0, n - 1);
     cout << "Quick Sort: ";
