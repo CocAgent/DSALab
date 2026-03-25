@@ -4,25 +4,25 @@
 // <tencontro>;
 #include <iostream>
 using namespace std;
+
 int main() {
-	int x=10;
-	int *p=&x;
-	
-	cout << *p << endl;
-	//output: 10
-	cout << p << endl;
-	//output: 000000CC98EFF574
-	*p = 20;
-	cout << p << endl;
-	//output: 0000008FE2AFF844
-	cout << *p << endl;
-	//output: 20
-	//con tro voi mang
-	int a[3] = {2,3,5};
-	int* p = a;
-	for (int i = 0;i < 3;i++) {
-		cout << *(p + i) << " ";
-	}
-	return 0;
-	//output: 2 3 5
+    int x = 10;
+    int *p = &x;
+
+    cout << *p << endl;  // output: 10
+    cout << p << endl;   // output: địa chỉ của x
+
+    *p = 20;
+    cout << *p << endl;  // output: 20
+    cout << x << endl;   // output: 20, cùng giá trị với *p
+
+    // con trỏ với mảng
+    int a[3] = {2, 3, 5};
+    p = a;  // gán p trỏ tới mảng
+    for (int i = 0; i < 3; i++) {
+        cout << *(p + i) << " ";
+    }
+    // output: 2 3 5
+
+    return 0;
 }
