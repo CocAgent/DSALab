@@ -1,4 +1,4 @@
-//them dau
+
 void ThemDau(List &L, int x) {
     Node *p = TaoNode(x);
     if (DanhSachRong(L)) {
