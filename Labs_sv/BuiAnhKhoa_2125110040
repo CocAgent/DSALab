@@ -1,14 +1,6 @@
-// ============================================================
-//  Chuong4_CauTrucCay.cpp
-//  Noi dung: Cay nhi phan, duyet cay, BST
-//  Giao trinh: Cau truc du lieu & Giai thuat - CDCTTP.HCM
-// ============================================================
 //bstree.h
+#pragma once
 #include <iostream>
-#include <queue>
-#include <cmath>
-#include <iomanip>
-#include <climits>
 using namespace std;
 
 // Cấu trúc Node
@@ -272,4 +264,3 @@ int main() {
     } while (cv != 0);
     return 0;
 }
-

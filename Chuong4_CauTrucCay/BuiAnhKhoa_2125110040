@@ -1,14 +1,6 @@
-// ============================================================
-//  Chuong4_CauTrucCay.cpp
-//  Noi dung: Cay nhi phan, duyet cay, BST
-//  Giao trinh: Cau truc du lieu & Giai thuat - CDCTTP.HCM
-// ============================================================
 //bstree.h
+#pragma once
 #include <iostream>
-#include <queue>
-#include <cmath>
-#include <iomanip>
-#include <climits>
 using namespace std;
 
 // Cấu trúc Node
@@ -42,7 +34,6 @@ int BSTDelete(BT_NODE*& pRoot, int x);
 void SearchStandFor(BT_NODE*& p, BT_NODE*& q);
 //Tiện ích
 int TinhCC(BT_NODE* pRoot);
-//caidat.cpp
 #include"bstree.h"
 
 void KhoiTao(BIN_TREE& t)
@@ -272,4 +263,3 @@ int main() {
     } while (cv != 0);
     return 0;
 }
-
