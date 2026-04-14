@@ -13,7 +13,7 @@ struct TreeNode {
     TreeNode* left;
     TreeNode* right;
 };
-struct BIN_TREE
+struct BIN_TREE  
 {
     int nCount;
     TreeNode* proot;
