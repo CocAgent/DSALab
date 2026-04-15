@@ -12,8 +12,8 @@ struct TreeNode {
     int data;
     TreeNode* left;
     TreeNode* right;
-};  
-struct BIN_TREE  
+};
+struct BIN_TREE
 {
     int nCount;
     TreeNode* proot;
@@ -21,6 +21,7 @@ struct BIN_TREE
 TreeNode* TaoNode(int x);
 void taocay(BIN_TREE& t, const int a[], int n);
 int BSTInsert(TreeNode*& pCurr, int newkey);
+
 #include "baitap12.h"
 
 
