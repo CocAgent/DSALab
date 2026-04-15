@@ -2,7 +2,7 @@
 
 ## Thông tin sinh viên
 
-- Họ tên: Vương Nguyễn Trường Hùng
+- Họ tên: Vương Nguyễn Trường Hưng
 - MSSV: 2124110111
 - Đề tài: Recommendation Engine
 
