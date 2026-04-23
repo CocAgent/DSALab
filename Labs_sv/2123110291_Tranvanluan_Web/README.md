@@ -4,7 +4,6 @@
 
 Đây là ứng dụng web fullstack mô phỏng hệ thống quản lý nhà hàng.
 Hệ thống cho phép quản lý bàn, gọi món, thanh toán và quản lý thực đơn.
-
 Dự án được xây dựng nhằm thực hành phát triển ứng dụng web với frontend (ReactJS) và backend (ASP.NET Core API).
 
 ---
