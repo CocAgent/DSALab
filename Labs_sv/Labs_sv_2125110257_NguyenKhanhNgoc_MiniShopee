@@ -1,0 +1,137 @@
+# mini-green-shopping
+Mini Green Shopping - Du an CTDL by Khanh Ngoc
+# 🛍️ Mini Green Shopping
+
+Hệ thống bán hàng đơn giản chạy trên terminal, xây dựng bằng **C++17**.  
+Đồ án môn **Cấu trúc Dữ liệu & Giải Thuật**.
+
+---
+
+## 📁 Cấu trúc file
+
+```
+mini-shopee/
+├── structures.h    
+├── functions.cpp   
+├── main.cpp        
+└── README.md
+```
+
+---
+
+## ⚙️ Cách compile và chạy
+
+```bash
+# Compile
+g++ -std=c++17 -o shopping main.cpp functions.cpp
+
+# Chạy (Linux/macOS)
+./shopping
+
+# Chạy (Windows)
+shopping.exe
+```
+
+---
+
+## 🧩 Cấu trúc dữ liệu sử dụng
+
+### 🌳 BST — Binary Search Tree (Quản lý sản phẩm)
+- **Lưu:** `Product` (id, name, price, stock)
+- **Tại sao dùng BST?**
+  - Tìm kiếm sản phẩm theo ID: **O(log n)**
+  - Inorder traversal tự động hiển thị theo ID tăng dần
+  - Insert sản phẩm mới: **O(log n)**
+
+```
+        [205]
+       /     \
+   [101]     [310]
+      \
+      [150]
+```
+
+### 🔗 Linked List — Danh sách liên kết (Giỏ hàng)
+- **Lưu:** `CartItem` (productId, name, price, quantity)
+- **Tại sao dùng Linked List?**
+  - Số lượng sản phẩm trong giỏ không biết trước
+  - Thêm/xóa linh hoạt, không cần cấp phát bộ nhớ cố định
+
+```
+head → [But bi x2] → [Vo x1] → [May tinh x1] → null
+```
+
+### 📚 Stack — Ngăn xếp (Undo)
+- **Lưu:** `ActionNode` (type, productId, quantity)
+- **Tại sao dùng Stack?**
+  - Undo hoạt động theo nguyên tắc **LIFO** (Last In First Out)
+  - Hành động cuối cùng được hoàn tác trước
+
+```
+TOP → [ADD_CART 205 x1]
+      [ADD_CART 101 x2]
+```
+
+### 🚶 Queue — Hàng đợi (Đơn hàng)
+- **Lưu:** `Order` (orderId, itemsSummary, totalPrice, status)
+- **Tại sao dùng Queue?**
+  - Đơn hàng xử lý theo nguyên tắc **FIFO** (First In First Out)
+  - Đơn đặt trước được xử lý trước — công bằng
+
+```
+FRONT → [Don #1] → [Don #2] → [Don #3] → null ← REAR
+```
+
+---
+
+## 🎮 Chức năng chính
+
+| STT | Chức năng | Cấu trúc dữ liệu |
+|-----|-----------|------------------|
+| 1 | Xem danh sách sản phẩm | BST Inorder |
+| 2 | Thêm sản phẩm mới | BST Insert |
+| 3 | Thêm sản phẩm vào giỏ | Linked List + Stack |
+| 4 | Xem giỏ hàng | Linked List |
+| 5 | Thanh toán | Queue + clear Linked List |
+| 6 | Undo thao tác gần nhất | Stack |
+| 7 | Xem danh sách đơn hàng | Queue |
+
+---
+
+## 📊 Độ phức tạp thuật toán
+
+| Thao tác | Cấu trúc | Big-O |
+|----------|----------|-------|
+| Tìm sản phẩm theo ID | BST | O(log n) |
+| Thêm sản phẩm mới | BST | O(log n) |
+| Thêm vào giỏ hàng | Linked List | O(n) |
+| Xóa khỏi giỏ hàng | Linked List | O(n) |
+| Undo | Stack | O(1) |
+| Đặt hàng (enqueue) | Queue | O(1) |
+| Xem đơn hàng | Queue | O(n) |
+
+---
+
+## 🛡️ Xử lý lỗi
+
+- Nhập chữ vào ô số → yêu cầu nhập lại, không crash
+- Nhập số âm hoặc 0 → từ chối, yêu cầu nhập lại
+- Thêm vào giỏ ID không tồn tại → báo lỗi
+- Thanh toán giỏ rỗng → báo lỗi
+- Undo khi không có hành động → báo lỗi
+- Thêm quá số lượng tồn kho → từ chối
+
+---
+
+## 👨‍💻 Tác giả
+
+- Môn học: Cấu trúc Dữ liệu & Giải Thuật  
+- Ngôn ngữ: C++17  
+- Compiler: g++
+## 🧪 Test Cases
+
+Chạy test:
+
+```bash
+g++ -std=c++17 tests/test_cases.cpp src/functions.cpp -o test
+./test
