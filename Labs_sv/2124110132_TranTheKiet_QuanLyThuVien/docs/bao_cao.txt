@@ -1,0 +1,12 @@
+Bao Cao: Giai Thich Thuat Toan Quan Ly Thu Vien
+
+1. Thuat toan them sach:
+   - Su dung danh sach lien ket de luu tru cac sach.
+   - Ham addBook se tao mot node moi va them vao cuoi danh sach.
+
+2. Thuat toan tim kiem sach:
+   - Duyet qua danh sach va so sanh tieu de hoac tac gia.
+
+3. Thuat toan xoa sach:
+   - Tim node can xoa va cap nhat con tro.
+
